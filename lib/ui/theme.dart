@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Themes {
 
@@ -12,18 +14,34 @@ class Themes {
   static const Color darkHeaderClr = Color(0xFF424242);
 
   static final light = ThemeData(
-      appBarTheme: AppBarTheme(
-          color: primaryClr
-      ),
       primaryColor: primaryClr,
+      backgroundColor: white,
       brightness: Brightness.light
   );
 
   static final dark = ThemeData(
-      appBarTheme: AppBarTheme(
-          color: darkGreyClr
-      ),
       primaryColor: darkGreyClr,
+      backgroundColor: darkGreyClr,
       brightness: Brightness.dark
+  );
+}
+
+TextStyle get subHeadingStyle {
+  return GoogleFonts.lato(
+    textStyle: TextStyle(
+      fontSize: 24,
+      fontWeight: FontWeight.bold,
+      color: Get.isDarkMode?Colors.grey[400]:Colors.grey
+    )
+  );
+}
+
+TextStyle get headingStyle {
+  return GoogleFonts.lato(
+      textStyle: TextStyle(
+          fontSize: 30,
+          fontWeight: FontWeight.bold,
+          color: Get.isDarkMode?Colors.white:Colors.black
+      )
   );
 }
