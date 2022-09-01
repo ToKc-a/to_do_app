@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 class Themes {
 
   static const Color primaryClr = bluishClr;
-
   static const Color bluishClr = Color(0xFF4e5ae8);
   static const Color yellowClr = Color(0xFFFFB746);
   static const Color pinkClr = Color(0xFFff4667);

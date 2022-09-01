@@ -16,7 +16,7 @@ class AddTaskPage extends StatefulWidget {
 class _AddTaskPageState extends State<AddTaskPage> {
   DateTime _selectedDate = DateTime.now();
   String _startTime = DateFormat.Hm().format(DateTime.now()).toString();
-  String _endTime = DateFormat.Hm().format(DateTime.now()).toString();
+  String _endTime = '23:59';
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
               MyInputField(title: 'Note', hint: 'Enter your note'),
               MyInputField(
                 title: 'Date',
-                hint: DateFormat.yMd().format(_selectedDate),
+                hint: DateFormat.yMMMMd().format(_selectedDate),
                 widget: IconButton(
                     onPressed: () {
                       _getDateFromUser();
@@ -53,7 +53,23 @@ class _AddTaskPageState extends State<AddTaskPage> {
                     title: 'Start Time',
                     hint: _startTime,
                     widget: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          _getTimeFromUser(isStartTime: true);
+                        },
+                        icon: Icon(
+                          Icons.access_time_rounded,
+                          color: Colors.grey,
+                        )),
+                  )),
+                  SizedBox(width: AppLayout.getWidth(12)),
+                  Expanded(
+                      child: MyInputField(
+                    title: 'End Time',
+                    hint: _endTime,
+                    widget: IconButton(
+                        onPressed: () {
+                          _getTimeFromUser(isStartTime: false);
+                        },
                         icon: Icon(
                           Icons.access_time_rounded,
                           color: Colors.grey,
@@ -105,5 +121,24 @@ class _AddTaskPageState extends State<AddTaskPage> {
     } else {
       print("it's null or something is wrong");
     }
+  }
+
+  _getTimeFromUser({required bool isStartTime}) {
+    var pickedTime = _showTimePicker();
+    String _formatedTime = pickedTime.format(context);
+    if (pickedTime == null){
+      print('Time cancelled');
+    } else if(isStartTime==true){
+      _startTime = _formatedTime;
+    } else if(isStartTime ==false ){
+      _endTime = _formatedTime;
+    }
+  }
+
+  _showTimePicker() {
+    return showTimePicker(
+      initialEntryMode: TimePickerEntryMode.input,
+        context: context,
+        initialTime: TimeOfDay.now());
   }
 }
